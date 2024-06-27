@@ -51,7 +51,10 @@ pipeline:
               uri: https://github.com/projectcalico/calico/releases/download/v${{package.version}}/calicoctl-linux-arm64
               expected-sha256: c4ca8563d2a920729116a3a30171c481580c8c447938ce974ce14d7ce25a31bf
               extract: false
-          - runs: mv calicoctl-linux-arm64 ${{targets.destdir}}/usr/sbin/calicoctl
+          - runs: |
+               mkdir -p ${{targets.destdir}}/usr/sbin
+               mv calicoctl-linux-arm64 ${{targets.destdir}}/usr/sbin/calicoctl
+               chmod 755 ${{targets.destdir}}/usr/sbin/calicoctl
       - if: ${{build.arch}} == 's390x'
         pipeline:
           - uses: fetch
@@ -59,4 +62,7 @@ pipeline:
               uri: https://github.com/projectcalico/calico/releases/download/v${{package.version}}/calicoctl-linux-s390x
               expected-sha256: 03ae8dd3c26c92c67050346bc4e4102fb8f589c6ee568af4bec94af0ed987454
               extract: false
-          - runs: mv calicoctl-linux-s390x ${{targets.destdir}}/usr/sbin/calicoctl
+          - runs: |
+              mkdir -p ${{targets.destdir}}/usr/sbin
+              mv calicoctl-linux-s390x ${{targets.destdir}}/usr/sbin/calicoctl
+              chmod 755 ${{targets.destdir}}/usr/sbin/calicoctl

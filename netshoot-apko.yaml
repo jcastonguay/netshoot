@@ -74,6 +74,7 @@ cmd: /bin/zsh
 
 environment:
   PATH: /usr/sbin:/sbin:/usr/bin:/bin
+  HOSTNAME: netshoot
 
 os-release:
   id: netshoot
