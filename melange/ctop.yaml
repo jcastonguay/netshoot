@@ -1,0 +1,27 @@
+package:
+  name: ctop
+  version: local-jtc-1
+  epoch: 0
+  description: "Top-like interface for container metrics"
+  copyright:
+    - attestation: "Copyright 2017 VektorLab"
+      license: MIT
+  dependencies:
+    runtime:
+
+environment:
+  contents:
+    repositories:
+       - https://dl-cdn.alpinelinux.org/alpine/edge/main
+       - https://dl-cdn.alpinelinux.org/alpine/edge/testing
+       - https://dl-cdn.alpinelinux.org/alpine/edge/community
+    packages:
+      - busybox
+      - ssl_client
+      - ca-certificates-bundle
+
+pipeline:
+  - uses: go/install
+    with:
+      package: github.com/bcicen/ctop
+      version: HEAD

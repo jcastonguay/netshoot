@@ -1,0 +1,30 @@
+package:
+  name: fortio
+  version: 1.63.10
+  epoch: 0
+  description: "Fortio load testing library, command line tool, advanced echo server and web UI in go (golang). Allows to specify a set query-per-second load and record latency histograms and other useful stats."
+  copyright:
+    - attestation: |
+         Copyright 2016 Fortio Authors
+         Copyright 2018 Fortio Authors
+         Copyright 2015 Michal Witkowski (dflag/)
+      license: Apache-2.0
+  dependencies:
+    runtime:
+
+environment:
+  contents:
+    repositories:
+       - https://dl-cdn.alpinelinux.org/alpine/edge/main
+       - https://dl-cdn.alpinelinux.org/alpine/edge/testing
+       - https://dl-cdn.alpinelinux.org/alpine/edge/community
+    packages:
+      - busybox
+      - ssl_client
+      - ca-certificates-bundle
+
+pipeline:
+  - uses: go/install
+    with:
+      package: fortio.org/fortio
+      version: v1.63.10

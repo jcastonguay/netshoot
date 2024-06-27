@@ -1,0 +1,62 @@
+package:
+  name: calicoctl
+  version: 3.28.0
+  epoch: 0
+  description: "The calicoctl command line tool is required to use many of Calico's features. It is used to manage Calico policies and configuration, as well as view detailed cluster status."
+  copyright:
+    - attestation: "Copyright © 2024 Tigera, Inc."
+      license: Apache-2.0
+  dependencies:
+    runtime:
+
+environment:
+  contents:
+    repositories:
+      - https://dl-cdn.alpinelinux.org/alpine/edge/main
+    packages:
+      - busybox
+      - ssl_client
+      - ca-certificates-bundle
+
+pipeline:
+  - assertions:
+      required-steps: 1
+    pipeline:
+      - if: ${{build.arch}} == 'x86_64'
+        pipeline:
+          - uses: fetch
+            with:
+              uri: https://github.com/projectcalico/calico/releases/download/v${{package.version}}/calicoctl-linux-amd64
+              expected-sha256: 4ea270699e67ca29e5533ddb0a68d370cb0005475796c7e841f83047da6297b6
+              extract: false
+          - runs: |
+              mkdir -p ${{targets.destdir}}/usr/sbin
+              mv calicoctl-linux-amd64 ${{targets.destdir}}/usr/sbin/calicoctl
+              chmod 755 ${{targets.destdir}}/usr/sbin/calicoctl
+      - if: ${{build.arch}} == 'ppc64le'
+        pipeline:
+          - uses: fetch
+            with:
+              uri: https://github.com/projectcalico/calico/releases/download/v${{package.version}}/calicoctl-linux-ppc64le
+              expected-sha256: 0789cb0d1478ec3f0a44db265b19042be9dfc18bc1776343c7ea8d246561d12b
+              extract: false
+          - runs: |
+              mkdir -p ${{targets.destdir}}/usr/sbin
+              mv calicoctl-linux-ppc64le ${{targets.destdir}}/usr/sbin/calicoctl
+              chmod 755 ${{targets.destdir}}/usr/sbin/calicoctl
+      - if: ${{build.arch}} == 'aarch64'
+        pipeline:
+          - uses: fetch
+            with:
+              uri: https://github.com/projectcalico/calico/releases/download/v${{package.version}}/calicoctl-linux-arm64
+              expected-sha256: c4ca8563d2a920729116a3a30171c481580c8c447938ce974ce14d7ce25a31bf
+              extract: false
+          - runs: mv calicoctl-linux-arm64 ${{targets.destdir}}/usr/sbin/calicoctl
+      - if: ${{build.arch}} == 's390x'
+        pipeline:
+          - uses: fetch
+            with:
+              uri: https://github.com/projectcalico/calico/releases/download/v${{package.version}}/calicoctl-linux-s390x
+              expected-sha256: 03ae8dd3c26c92c67050346bc4e4102fb8f589c6ee568af4bec94af0ed987454
+              extract: false
+          - runs: mv calicoctl-linux-s390x ${{targets.destdir}}/usr/sbin/calicoctl

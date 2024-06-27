@@ -1,0 +1,27 @@
+package:
+  name: grpcurl
+  version: 1.9.1
+  epoch: 0
+  description: "Like cURL, but for gRPC: Command-line tool for interacting with gRPC servers"
+  copyright:
+    - attestation: "Copyright 2017 Fullstory, Inc"
+      license: MIT
+  dependencies:
+    runtime:
+
+environment:
+  contents:
+    repositories:
+       - https://dl-cdn.alpinelinux.org/alpine/edge/main
+       - https://dl-cdn.alpinelinux.org/alpine/edge/testing
+       - https://dl-cdn.alpinelinux.org/alpine/edge/community
+    packages:
+      - busybox
+      - ssl_client
+      - ca-certificates-bundle
+
+pipeline:
+  - uses: go/install
+    with:
+      package: github.com/fullstorydev/grpcurl/cmd/grpcurl
+      version: v1.9.1
