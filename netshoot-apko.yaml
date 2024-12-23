@@ -1,9 +1,9 @@
 contents:
   repositories:
-     - https://dl-cdn.alpinelinux.org/alpine/edge/main
-     - https://dl-cdn.alpinelinux.org/alpine/edge/testing
-     - https://dl-cdn.alpinelinux.org/alpine/edge/community
-     - '@local melange/packages'
+    - https://dl-cdn.alpinelinux.org/alpine/edge/main
+    - https://dl-cdn.alpinelinux.org/alpine/edge/testing
+    - https://dl-cdn.alpinelinux.org/alpine/edge/community
+    - "@local melange/packages"
   packages:
     - alpine-baselayout-data
     - apache2-utils
@@ -15,7 +15,7 @@ contents:
     - conntrack-tools
     - curl
     - dhcping
-    - drill
+    #    - drill
     - ethtool
     - file
     - fping
@@ -42,11 +42,12 @@ contents:
     - nmap-nping
     - nmap-scripts
     - openssl
-    - py3-pip
-    - py3-setuptools
+    #    - py3-pip
+    #    - py3-setuptools
     - scapy
     - socat
     - speedtest-cli
+    - sysstat
     - openssh
     - oh-my-zsh
     - zsh-theme-powerlevel10k
@@ -65,6 +66,7 @@ contents:
     - perl-net-ssleay
     - ctop
     - hping3
+    - zmap
     - fortio@local
     - calicoctl@local
     - grpcurl@local
@@ -78,6 +80,6 @@ environment:
 
 os-release:
   id: netshoot
-  version-id: '0.13'
-  name: 'netshoot'
-  pretty-name: 'netshoot (apko)'
+  version-id: "0.13"
+  name: "netshoot"
+  pretty-name: "netshoot (apko)"
