@@ -1,0 +1,27 @@
+package:
+  name: termshark
+  version: 2.4.0
+  epoch: 0
+  description: "A terminal UI for tshark, inspired by Wireshark"
+  copyright:
+    - attestation: "Copyright 2019 Graham Clark"
+      license: MIT
+  dependencies:
+    runtime:
+
+environment:
+  contents:
+    repositories:
+       - https://dl-cdn.alpinelinux.org/alpine/edge/main
+       - https://dl-cdn.alpinelinux.org/alpine/edge/testing
+       - https://dl-cdn.alpinelinux.org/alpine/edge/community
+    packages:
+      - busybox
+      - ssl_client
+      - ca-certificates-bundle
+
+pipeline:
+  - uses: go/install
+    with:
+      package: github.com/gcla/termshark/v2/cmd/termshark
+      version: v2.4.0

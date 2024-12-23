@@ -1,0 +1,66 @@
+package:
+  name: netshoot-local
+  version: 0.1
+  epoch: 0
+  description: "Package of local files for netshoot"
+  copyright:
+    - attestation: "Copyright 2024 Nicola Kabar" 
+      license: Apache-2.0
+  dependencies:
+    runtime:
+
+environment:
+  contents:
+    repositories:
+      - https://dl-cdn.alpinelinux.org/alpine/edge/main
+    packages:
+      - bash
+
+pipeline:
+  - runs: |
+      cat >zshrc <<-EOF
+      rm -f /usr/share/oh-my-zsh/custom/plugins/zsh-autosuggestions /usr/share/oh-my-zsh/themes/powerlevel10k
+      ln -s /usr/share/zsh/plugins/zsh-autosuggestions /usr/share/oh-my-zsh/custom/plugins/zsh-autosuggestions
+      ln -s /usr/share/zsh/plugins/powerlevel10k /usr/share/oh-my-zsh/themes/powerlevel10k
+      ZSH_THEME="powerlevel10k/powerlevel10k"
+      ZSH_DISABLE_COMPFIX="true"
+      plugins=(
+        git
+        zsh-autosuggestions
+        yarn
+        web-search
+        jsontools
+        macports
+        node
+        sudo
+        docker
+      )
+      source /usr/share/oh-my-zsh//oh-my-zsh.sh
+      cat /etc/motd
+      POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(host dir rbenv)
+      POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=()
+      POWERLEVEL9K_PROMPT_ON_NEWLINE=false
+      POWERLEVEL9K_MULTILINE_FIRST_PROMPT_PREFIX=''
+      POWERLEVEL9K_VCS_MODIFIED_BACKGROUND='red'
+      POWERLEVEL9K_PROMPT_ADD_NEWLINE=true
+      echo -e "\033]6;1;bg;red;brightness;18\a"
+      echo -e "\033]6;1;bg;green;brightness;26\a"
+      echo -e "\033]6;1;bg;blue;brightness;33\a"
+      EOF
+  - runs: |
+      cat >motd <<-EOF
+                          dP            dP                           dP
+                          88            88                           88
+      88d888b. .d8888b. d8888P .d8888b. 88d888b. .d8888b. .d8888b. d8888P
+      88'  \`88 88ooood8   88   Y8ooooo. 88'  \`88 88'  \`88 88'  \`88   88
+      88    88 88.  ...   88         88 88    88 88.  .88 88.  .88   88
+      dP    dP \`88888P'   dP   \`88888P' dP    dP \`88888P' \`88888P'   dP
+      
+      Welcome to Netshoot! (github.com/nicolaka/netshoot)
+      Version: 0.13
+      EOF
+  - runs: |
+      mkdir ${{targets.destdir}}/root/
+      mv zshrc ${{targets.destdir}}/root/.zshrc
+      mkdir ${{targets.destdir}}/etc
+      mv motd ${{targets.destdir}}/etc/motd
